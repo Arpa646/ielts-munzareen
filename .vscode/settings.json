@@ -1,0 +1,55 @@
+{
+  // "workbench.colorTheme": "Dracula",
+  // "workbench.iconTheme": "file-icons",
+  "editor.fontSize": 14,
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "workbench.settings.applyToAllProfiles": ["editor.formatOnSave"],
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit",
+    "source.fixAll.eslint": "explicit"
+  },
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+    // Add any other languages that you use and want ESLint to validate.
+  ],
+  "eslint.alwaysShowStatus": true,
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[typescript]": {
+    "editor.formatOnSave": true
+  },
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "github.copilot.editor.enableAutoCompletions": true,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "[json]": {
+    "editor.formatOnSave": true
+  },
+  "[css]": {
+    "editor.formatOnSave": true
+  },
+  "[html]": {
+    "editor.formatOnSave": true
+  },
+  "[markdown]": {
+    "editor.formatOnSave": true
+  },
+  "prettier.requireConfig": true,
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "folder-path-color.folders": [],
+  "workbench.editor.enablePreview": false,
+  "eslint.codeActionsOnSave.rules": null,
+  "editor.unicodeHighlight.invisibleCharacters": false,
+  "eslint.nodePath": "",
+  "solidity.telemetry": true,
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}

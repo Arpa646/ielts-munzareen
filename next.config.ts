@@ -1,0 +1,49 @@
+import type { NextConfig } from 'next';
+
+const nextConfig: NextConfig = {
+  /* config options here */
+  reactStrictMode: true,
+  images: {
+    domains: ['api.10minuteschool.com', 'img.youtube.com', 'i.ytimg.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+    ],
+  },
+  // ISR and caching configuration
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, s-maxage=1800, stale-while-revalidate=3600',
+          },
+        ],
+      },
+      {
+        source: '/api/revalidate',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'no-store, max-age=0',
+          },
+        ],
+      },
+    ];
+  },
+  // Enable compression for better performance
+  compress: true,
+  // Optimize fonts
+  optimizeFonts: true,
+  // Enable experimental features for better ISR
+  experimental: {
+    optimizeCss: true,
+    serverComponentsExternalPackages: [],
+  },
+};
+
+export default nextConfig;
