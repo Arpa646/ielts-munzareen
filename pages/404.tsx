@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { useRouter } from 'next/router'
+import React, { useRouter } from 'next/router'
 
 export default function Custom404() {
   const router = useRouter()
@@ -13,7 +13,7 @@ export default function Custom404() {
             Page Not Found
           </h2>
           <p className="text-gray-600 mb-8">
-            The course you're looking for might have been moved, deleted, or is temporarily unavailable.
+            The course you&apos;re looking for might have been moved, deleted, or is temporarily unavailable.
           </p>
         </div>
         

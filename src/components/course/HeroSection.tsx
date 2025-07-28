@@ -1,7 +1,7 @@
 import React from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import type { Medium, CtaText } from '@/types'
-import { YouTubePlayer } from '@/components/ui/YouTubePlayer'
+
 
 interface HeroSectionProps {
   title: string
@@ -10,7 +10,7 @@ interface HeroSectionProps {
   ctaText: CtaText
 }
 
-export function HeroSection({ title, description, media, ctaText }: HeroSectionProps) {
+export function HeroSection({ title, description }: HeroSectionProps) {
   const { language } = useLanguage()
 
   return (

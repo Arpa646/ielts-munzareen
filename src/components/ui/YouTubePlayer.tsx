@@ -21,7 +21,7 @@ export function YouTubePlayer({
   let extractedVideoId = videoId
   
   if (url && !videoId) {
-    const match = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/)
+    const match = url.match(/(?:youtube\.com\/(?:[^/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?/\s]{11})/)
     extractedVideoId = match ? match[1] : ''
   }
 

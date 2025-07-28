@@ -2,7 +2,7 @@ import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   /* config options here */
-  reactStrictMode: true,
+  reactStrictMode: false, // Disabled to prevent auto-reloading
 
   images: {
     domains: ['api.10minuteschool.com', 'img.youtube.com', 'i.ytimg.com'],

@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
-import type { Section } from '@/types'
+import type { Section, FaqItem } from '@/types'
 
 interface CourseDetailsProps {
   section: Section
 }
 
-interface AccordionItem {
-  id: string
-  title: string
-  description: string
-  icon: string
+// For 'about' sections, we're working with FAQ items
+type AccordionItem = FaqItem & {
+  title: string // question mapped to title
+  description: string // answer mapped to description
+  icon: string // icon for display
 }
 
 export function CourseDetails({ section }: CourseDetailsProps) {
@@ -23,18 +23,28 @@ export function CourseDetails({ section }: CourseDetailsProps) {
     setIsMounted(true)
   }, [])
 
-  // Type guard to ensure we have accordion items
-  const isAccordionItem = (item: any): item is AccordionItem => {
-    return item && 
-           typeof item.id === 'string' && 
-           typeof item.title === 'string' && 
-           typeof item.description === 'string'
+  // Type guard for FAQ items (which are used in 'about' sections)
+  const isFaqItem = (item: unknown): item is FaqItem => {
+    return !!(item && 
+           typeof item === 'object' &&
+           'id' in item && typeof (item as Record<string, unknown>).id === 'string' && 
+           'question' in item && typeof (item as Record<string, unknown>).question === 'string' && 
+           'answer' in item && typeof (item as Record<string, unknown>).answer === 'string')
   }
+
+  // Convert FAQ items to accordion items format
+  const mapFaqToAccordion = (faqItem: FaqItem): AccordionItem => ({
+    ...faqItem,
+    title: faqItem.question,
+    description: faqItem.answer,
+    icon: '' // FAQ items don't have icons in the current schema
+  })
 
   // Ensure consistent data structure and cast to proper type
   const safeSection = section || {}
   const safeValues = Array.isArray(safeSection.values) ? safeSection.values : []
-  const accordionItems: AccordionItem[] = safeValues.filter(isAccordionItem) as unknown as AccordionItem[]
+  const faqItems = safeValues.filter(isFaqItem)
+  const accordionItems: AccordionItem[] = faqItems.map(mapFaqToAccordion)
 
   const toggleItem = (id: string) => {
     if (!isMounted) return // Only allow interaction after mounting

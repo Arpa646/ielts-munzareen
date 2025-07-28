@@ -1,6 +1,6 @@
 // Common TypeScript types for React/Next.js projects
 
-export interface BaseApiResponse<T = any> {
+export interface BaseApiResponse<T = unknown> {
   success: boolean;
   data?: T;
   message?: string;
@@ -117,8 +117,8 @@ export interface Section {
   // Legacy properties for backwards compatibility
   id?: number;
   title?: string;
-  content?: any;
-  data?: any[];
+  content?: unknown;
+  data?: unknown[];
 }
 
 export interface Testimonial {

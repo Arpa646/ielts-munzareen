@@ -9,9 +9,15 @@ interface WhatYouLearnProps {
 export function WhatYouLearn({ section }: WhatYouLearnProps) {
   const { language } = useLanguage()
 
-  // Type guard to check if values are Pointer[]
-  const isPointerArray = (values: any[]): values is Pointer[] => {
-    return values.length > 0 && 'text' in values[0] && 'id' in values[0];
+  // Type guard to check if values are Pointer[] - checking all required Pointer properties
+  const isPointerArray = (values: unknown[]): values is Pointer[] => {
+    return values.length > 0 && 
+           typeof values[0] === 'object' &&
+           values[0] !== null &&
+           'text' in values[0] && 
+           'id' in values[0] &&
+           'color' in values[0] &&
+           'icon' in values[0];
   }
 
   const pointerValues = section.values && isPointerArray(section.values) ? section.values : []
@@ -32,17 +38,25 @@ export function WhatYouLearn({ section }: WhatYouLearnProps) {
               return (
                 <div key={point.id} className={`flex items-start pb-6 ${!isLastRow ? 'border-b border-dashed border-gray-300' : ''}`}>
                   <div className="flex-shrink-0 mr-4 mt-1">
-                    <svg 
-                      className="w-5 h-5 text-blue-500" 
-                      fill="currentColor" 
-                      viewBox="0 0 20 20"
-                    >
-                      <path 
-                        fillRule="evenodd" 
-                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" 
-                        clipRule="evenodd"
-                      />
-                    </svg>
+                    {/* Use custom icon if provided, otherwise fallback to default checkmark */}
+                    {point.icon && point.icon !== "0" ? (
+                      <span className="w-5 h-5 flex items-center justify-center text-sm" style={{ color: point.color || '#3B82F6' }}>
+                        {point.icon}
+                      </span>
+                    ) : (
+                      <svg 
+                        className="w-5 h-5" 
+                        style={{ color: point.color || '#3B82F6' }}
+                        fill="currentColor" 
+                        viewBox="0 0 20 20"
+                      >
+                        <path 
+                          fillRule="evenodd" 
+                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" 
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    )}
                   </div>
                   <span className="text-gray-700 leading-relaxed">
                     {point.text}

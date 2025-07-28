@@ -14,13 +14,13 @@ interface LanguageProviderProps {
 }
 
 export function LanguageProvider({ children, initialLanguage = 'en' }: LanguageProviderProps) {
-  const [language, setLanguageState] = useState<Language>(initialLanguage)
+  const [language, ] = useState<Language>(initialLanguage)
 
-  // Debug language initialization (no timestamps)
-  console.log('🎯 LANGUAGE CONTEXT DEBUG:', {
-    initialLanguage,
-    currentLanguage: language
-  })
+  // Debug language initialization (disabled for production)
+  // console.log('🎯 LANGUAGE CONTEXT DEBUG:', {
+  //   initialLanguage,
+  //   currentLanguage: language
+  // })
 
   const setLanguage = (lang: Language) => {
     console.log('🔄 LANGUAGE CHANGE:', {

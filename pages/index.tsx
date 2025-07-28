@@ -1,3 +1,4 @@
+import React from 'react'
 import { GetServerSideProps } from 'next'
 import { CoursePageContent } from '@/components/CoursePageContent'
 import { fetchCourseData } from '@/services/api'

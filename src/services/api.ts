@@ -14,13 +14,13 @@ const apiClient = axios.create({
 
 export async function fetchCourseData(language: Language = 'en'): Promise<CourseData> {
     try {
-        // Debug language parameter (no timestamps)
-        console.log('🌐 LANGUAGE DEBUG:', {
-            receivedLanguage: language,
-            languageType: typeof language,
-            defaultUsed: language === 'en' ? 'YES (default)' : 'NO (custom)',
-            validLanguages: ['en', 'bn']
-        })
+        // Debug language parameter (disabled to prevent auto-reload)
+        // console.log('🌐 LANGUAGE DEBUG:', {
+        //     receivedLanguage: language,
+        //     languageType: typeof language,
+        //     defaultUsed: language === 'en' ? 'YES (default)' : 'NO (custom)',
+        //     validLanguages: ['en', 'bn']
+        // })
 
         // Ensure language is valid
         const validLanguage = (['en', 'bn'] as Language[]).includes(language) ? language : 'en'
@@ -37,10 +37,10 @@ export async function fetchCourseData(language: Language = 'en'): Promise<Course
             }
         })
 
-        // Debug request details (simplified)
-        console.log('🚀 API REQUEST DEBUG:')
-        console.log('- Language requested:', validLanguage)
-        console.log('- Response status:', response.status)
+        // Debug request details (disabled to prevent auto-reload)
+        // console.log('🚀 API REQUEST DEBUG:')
+        // console.log('- Language requested:', validLanguage)
+        // console.log('- Response status:', response.status)
 
         const processedData = response.data.data || response.data
 
@@ -49,12 +49,12 @@ export async function fetchCourseData(language: Language = 'en'): Promise<Course
             throw new Error('Invalid course data received from API')
         }
 
-        // Console log the processed data (simplified)
-        console.log('=== PROCESSED DATA ===')
-        console.log('- Language requested:', validLanguage)
-        console.log('- Course title:', processedData.title)
-        console.log('- Sections count:', processedData.sections?.length || 0)
-        console.log('- Has Bengali content:', /[\u0980-\u09FF]/.test(JSON.stringify(processedData)))
+        // Console log the processed data (disabled to prevent auto-reload)
+        // console.log('=== PROCESSED DATA ===')
+        // console.log('- Language requested:', validLanguage)
+        // console.log('- Course title:', processedData.title)
+        // console.log('- Sections count:', processedData.sections?.length || 0)
+        // console.log('- Has Bengali content:', /[\u0980-\u09FF]/.test(JSON.stringify(processedData)))
 
         return processedData
     } catch (error) {

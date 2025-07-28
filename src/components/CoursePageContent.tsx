@@ -6,7 +6,7 @@ import { InstructorSection } from './course/InstructorSection'
 import { CourseFeatures } from './course/CourseFeatures'
 import { CourseDetails } from './course/CourseDetails'
 import { WhatYouLearn } from './course/WhatYouLearn'
-import { ChecklistSection } from './course/ChecklistSection'
+
 import { CourseEnrollmentCard } from './course/CourseEnrollmentCard'
 import { CourseExclusiveFeature } from './course/CourseExclusiveFeature'
 import { FaqSectionTest } from './course/FaqSectionTest'
@@ -18,14 +18,10 @@ interface CoursePageContentProps {
   initialLanguage: Language
 }
 
-export function CoursePageContent({ courseData, initialLanguage }: CoursePageContentProps) {
-  // Debug received props - only log, don't render dynamic content
-  console.log('📦 COURSE CONTENT DEBUG:', {
-    initialLanguage,
-    courseTitle: courseData.title,
-    courseSectionsCount: courseData.sections?.length || 0,
-    hasDescription: !!courseData.description
-  })
+export function CoursePageContent({ courseData }: CoursePageContentProps) {
+  // Debug received props - disabled to prevent auto-reload
+  console.log('📦 COURSE CONTENT DEBUG:', courseData)
+  
 
   const instructorSection = courseData.sections.find(section => section.type === 'instructors')
   const featuresSection = courseData.sections.find(section => section.type === 'features')
@@ -82,12 +78,12 @@ export function CoursePageContent({ courseData, initialLanguage }: CoursePageCon
               <FaqSectionTest section={faqSection} />
             )}
 
-            {/* {aboutSection && (
+            {aboutSection && (
               <CourseDetails section={aboutSection} />
-            )} */}
+            )}
 
-            {/* Checklist Section with Image */}
-            <ChecklistSection checklist={courseData.checklist} />
+          
+           
           </div>
 
           {/* Right Sidebar - Enrollment Card (hidden on md and below) */}

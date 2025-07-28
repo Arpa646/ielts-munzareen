@@ -1,5 +1,4 @@
 import React from 'react'
-import { useLanguage } from '@/contexts/LanguageContext'
 import type { Section, Instructor } from '@/types'
 
 interface InstructorSectionProps {
@@ -7,8 +6,7 @@ interface InstructorSectionProps {
 }
 
 export function InstructorSection({ section }: InstructorSectionProps) {
-  const { language } = useLanguage()
-  console.log("instructor section", section)
+  // console.log("instructor section", section)
 
   // Get the first instructor from the values array with proper typing
   const instructor = (section.values as Instructor[])?.[0]

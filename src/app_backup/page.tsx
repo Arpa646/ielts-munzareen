@@ -1,3 +1,4 @@
+import React from 'react'
 import { Suspense } from 'react'
 import { CoursePageContent } from '@/components/CoursePageContent'
 import { fetchCourseData } from '@/services/api'

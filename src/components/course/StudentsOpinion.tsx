@@ -1,5 +1,5 @@
 import React from 'react'
-import { useLanguage } from '@/contexts/LanguageContext'
+
 import { ChevronLeft, ChevronRight, Play, Quote } from 'lucide-react'
 
 interface Testimonial {

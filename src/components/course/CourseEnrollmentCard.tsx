@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { YouTubePlayer } from '@/components/ui/YouTubePlayer'
+
 import { VideoModal } from '@/components/ui/VideoModal'
 import { useLanguage } from '@/contexts/LanguageContext'
 import type { CourseData } from '@/types'
@@ -104,54 +104,7 @@ export function CourseEnrollmentCard({ courseData, isFullWidth = false }: Course
     discountPercent: '23%'
   }
 
-  // Sample stats (you can integrate with actual course data)
-  const stats = [
-    {
-      icon: '👥',
-      label: language === 'bn' ? 'মোট এনরোল' : 'Total Enrolled',
-      value: '33018'
-    },
-    {
-      icon: '🕒',
-      label: language === 'bn' ? 'সময় প্রয়োজন' : 'Time Required',
-      value: language === 'bn' ? '৫০ ঘন্টা' : '50 hours'
-    },
-    {
-      icon: '🎥',
-      label: language === 'bn' ? 'ভিডিও' : 'Videos',
-      value: '54'
-    },
-    {
-      icon: '📝',
-      label: language === 'bn' ? 'রিডিং ও লিসেনিং মকটেস্ট' : 'Reading & Listening Mocktests',
-      value: '10 & 10'
-    },
-    {
-      icon: '📄',
-      label: language === 'bn' ? 'লেকচার শিট' : 'Lecture Sheets',
-      value: '38'
-    },
-    {
-      icon: '🎬',
-      label: language === 'bn' ? 'ভিডিও লেকচার' : 'Video Lectures',
-      value: '25'
-    },
-    {
-      icon: '📚',
-      label: language === 'bn' ? 'ফ্রি হার্ডকপি বই ডেলিভারি' : 'Free Hardcopy Book Delivered',
-      value: '1'
-    },
-    {
-      icon: '👥',
-      label: language === 'bn' ? 'ফেসবুক সাপোর্ট গ্রুপ' : 'Facebook Support Group',
-      value: ''
-    },
-    {
-      icon: '⏰',
-      label: language === 'bn' ? 'কোর্স ভ্যালিডিটি' : 'Course Validity',
-      value: language === 'bn' ? 'লাইফটাইম' : 'Lifetime'
-    }
-  ]
+ 
 
   // Conditional wrapper classes based on isFullWidth
   const wrapperClasses = isFullWidth 

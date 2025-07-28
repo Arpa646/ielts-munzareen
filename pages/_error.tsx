@@ -1,3 +1,4 @@
+import React from 'react'
 import { NextPageContext } from 'next'
 
 interface ErrorProps {
@@ -6,7 +7,7 @@ interface ErrorProps {
   err?: Error
 }
 
-function Error({ statusCode, hasGetInitialPropsRun, err }: ErrorProps) {
+function Error({ statusCode }: ErrorProps) {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="text-center max-w-md mx-auto px-4">
