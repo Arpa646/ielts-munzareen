@@ -4,7 +4,7 @@ import type { Language } from '@/types'
 
 export async function POST(request: NextRequest) {
     try {
-        // Check for authorization (you should implement proper auth)
+
         const authHeader = request.headers.get('authorization')
         const secret = process.env.REVALIDATION_SECRET || 'your-secret-key'
 
@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
         const { language, tag } = await request.json()
 
         if (tag) {
-            // Revalidate specific tag
+
             revalidateTag(tag)
             return NextResponse.json({
                 revalidated: true,
@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
         }
 
         if (language) {
-            // Revalidate specific language
+
             const validLanguages: Language[] = ['en', 'bn']
             if (!validLanguages.includes(language)) {
                 return NextResponse.json({ error: 'Invalid language' }, { status: 400 })
@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
             })
         }
 
-        // Revalidate all languages if no specific language provided
+
         const languages: Language[] = ['en', 'bn']
         languages.forEach(lang => {
             revalidateTag(`course-${lang}`)
@@ -60,7 +60,7 @@ export async function POST(request: NextRequest) {
     }
 }
 
-// GET endpoint for health check
+
 export async function GET() {
     return NextResponse.json({
         status: 'ok',

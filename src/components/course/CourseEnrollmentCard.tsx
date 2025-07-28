@@ -364,7 +364,7 @@ export function CourseEnrollmentCard({ courseData, isFullWidth = false }: Course
 
       {/* Fixed Right Side Enrollment Card (No Video) */}
       {showFixedCard && !isFullWidth && (
-        <div className="fixed top-0 right-4 md:right-12 lg:right-12 xl:right-80 w-72 md:w-80 lg:w-96 xl:w-[500px] z-50 hidden lg:block">
+        <div className="fixed top-0 right-4 md:right-12 lg:right-0 xl:right-0  2xl:right-[100px]  w-72 md:w-80 lg:w-96 xl:w-[500px] z-50 hidden lg:block">
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
             <div className="p-4 md:p-5 lg:p-6 space-y-4 md:space-y-5 lg:space-y-6">
               {/* Pricing Section */}

@@ -82,7 +82,15 @@ export function CoursePageContent({ courseData }: CoursePageContentProps) {
               <CourseDetails section={aboutSection} />
             )}
 
-          
+           {/* Testimonials Section - Full Width */}
+      {testimonialsSection && (
+        <StudentsOpinion 
+          section={{
+            name: testimonialsSection.name,
+            values: testimonialsSection.values as import('@/types').Testimonial[]
+          }} 
+        />
+      )}
            
           </div>
 
@@ -93,15 +101,7 @@ export function CoursePageContent({ courseData }: CoursePageContentProps) {
         </div>
       </div>
 
-      {/* Testimonials Section - Full Width */}
-      {testimonialsSection && (
-        <StudentsOpinion 
-          section={{
-            name: testimonialsSection.name,
-            values: testimonialsSection.values as import('@/types').Testimonial[]
-          }} 
-        />
-      )}
+     
 
       <Footer />
     </div>

@@ -52,10 +52,10 @@ export function StudentsOpinion({ section }: StudentsOpinionProps) {
   }
 
   return (
-    <section className="py-16 bg-white">
-      <div className="max-w-3xl mx-auto px-4">
+    <section className=" bg-white">
+      <div className="max-w-4xl  px-4">
         {/* Section Title */}
-        <h2 className="text-4xl font-bold text-center text-gray-900 mb-12">
+        <h2 className="text-3xl font-bold text-start text-gray-900 mb-12">
           {section.name}
         </h2>
 

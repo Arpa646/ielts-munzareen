@@ -17,7 +17,7 @@ export function CourseFeatures({ section }: CourseFeaturesProps) {
     <section className=" ">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-start mb-12">
-          <h2 className="text-3xl md:text-3xl font-bold text-gray-700 mb-4">
+          <h2 className="text-3xl md:text-3xl font-bold  mb-4">
             {section.name || (language === 'bn' ? 'কোর্সটি কীভাবে সাজানো হয়েছে' : 'How the Course is Laid Out')}
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
