@@ -55,6 +55,26 @@ export interface Checklist {
   description?: string;
 }
 
+export interface MetaTag {
+  content: string;
+  type: 'property' | 'name';
+  value: string;
+}
+
+export interface SchemaData {
+  meta_name: string;
+  meta_value: string;
+  type: string;
+}
+
+export interface ComprehensiveSeo {
+  title: string;
+  description: string;
+  keywords: string[];
+  defaultMeta: MetaTag[];
+  schema: SchemaData[];
+}
+
 export interface Seo {
   title: string;
   description: string;

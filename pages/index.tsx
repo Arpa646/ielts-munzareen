@@ -1,7 +1,9 @@
 import React from 'react'
 import { GetServerSideProps } from 'next'
 import { CoursePageContent } from '@/components/CoursePageContent'
+import { SEOHead } from '@/components/common/SEOHead'
 import { fetchCourseData } from '@/services/api'
+import { ieltsCourseSeoData } from '@/data/seoData'
 import type { Language, CourseData } from '@/types'
 
 interface PageProps {
@@ -11,9 +13,15 @@ interface PageProps {
 
 export default function HomePage({ course, language }: PageProps) {
   return (
-    <main className="min-h-screen">
-      <CoursePageContent courseData={course} initialLanguage={language} />
-    </main>
+    <>
+      <SEOHead 
+        seoData={ieltsCourseSeoData} 
+        canonicalUrl="https://10minuteschool.com/product/ielts-course"
+      />
+      <main className="min-h-screen">
+        <CoursePageContent courseData={course} initialLanguage={language} />
+      </main>
+    </>
   )
 }
 
