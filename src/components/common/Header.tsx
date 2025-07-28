@@ -22,12 +22,12 @@ export function Header() {
           {/* Logo */}
           <div className="flex items-center">
             <Link href="/" className="flex items-center">
-              <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white font-bold text-sm mr-2">
-                10
-              </div>
-              <span className="text-xl font-bold text-gray-900">
-                {language === 'bn' ? 'মিনিট স্কুল' : 'MINUTE SCHOOL'}
-              </span>
+              <img 
+                src="https://cdn.10minuteschool.com/images/svg/10mslogo-svg.svg" 
+                alt="10 Minute School Logo"
+                className="w-20 h-20 mr-2"
+              />
+             
             </Link>
           </div>
 
