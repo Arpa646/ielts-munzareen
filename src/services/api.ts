@@ -14,24 +14,47 @@ const apiClient = axios.create({
 
 export async function fetchCourseData(language: Language = 'en'): Promise<CourseData> {
     try {
-        const response = await apiClient.get('/products/ielts-course', {
-            params: { lang: language }
+        // Debug language parameter (no timestamps)
+        console.log('🌐 LANGUAGE DEBUG:', {
+            receivedLanguage: language,
+            languageType: typeof language,
+            defaultUsed: language === 'en' ? 'YES (default)' : 'NO (custom)',
+            validLanguages: ['en', 'bn']
         })
 
-        // Console log all the raw response data
-        console.log('=== RAW API RESPONSE ===')
-        console.log('Full response:', response)
-        console.log('Response data:', response.data)
-        console.log('Response status:', response.status)
-        console.log('Response headers:', response.headers)
+        // Ensure language is valid
+        const validLanguage = (['en', 'bn'] as Language[]).includes(language) ? language : 'en'
+
+        if (validLanguage !== language) {
+            console.warn(`⚠️ Invalid language "${language}" provided, falling back to "en"`)
+        }
+
+        const response = await apiClient.get('/products/ielts-course', {
+            params: {
+                lang: validLanguage,
+                // Add additional parameters that might be needed
+                platform: 'web'
+            }
+        })
+
+        // Debug request details (simplified)
+        console.log('🚀 API REQUEST DEBUG:')
+        console.log('- Language requested:', validLanguage)
+        console.log('- Response status:', response.status)
 
         const processedData = response.data.data || response.data
 
-        // Console log the processed data
+        // Validate that we received course data
+        if (!processedData || typeof processedData !== 'object') {
+            throw new Error('Invalid course data received from API')
+        }
+
+        // Console log the processed data (simplified)
         console.log('=== PROCESSED DATA ===')
-        console.log('Processed course data:', processedData)
-        console.log('Data type:', typeof processedData)
-        console.log('Data keys:', Object.keys(processedData))
+        console.log('- Language requested:', validLanguage)
+        console.log('- Course title:', processedData.title)
+        console.log('- Sections count:', processedData.sections?.length || 0)
+        console.log('- Has Bengali content:', /[\u0980-\u09FF]/.test(JSON.stringify(processedData)))
 
         return processedData
     } catch (error) {

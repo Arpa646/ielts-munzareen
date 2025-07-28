@@ -1,8 +1,6 @@
-'use client'
-
 import React from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
-import type { Section } from '@/types'
+import type { Section, Instructor } from '@/types'
 
 interface InstructorSectionProps {
   section: Section
@@ -12,8 +10,8 @@ export function InstructorSection({ section }: InstructorSectionProps) {
   const { language } = useLanguage()
   console.log("instructor section", section)
 
-  // Get the first instructor from the values array
-  const instructor = section.values?.[0]
+  // Get the first instructor from the values array with proper typing
+  const instructor = (section.values as Instructor[])?.[0]
   
   if (!instructor) {
     return null // Don't render if no instructor data

@@ -1,6 +1,5 @@
-'use client'
-
 import React, { useState } from 'react'
+import { useLanguage } from '@/contexts/LanguageContext'
 import type { Section, FaqItem } from '@/types'
 
 interface FaqSectionProps {

@@ -20,7 +20,22 @@ export default function HomePage({ course, language }: PageProps) {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     const lang = (context.query.lang as string) || 'en'
+    
+    // Debug SSR language (no timestamps)
+    console.log('🏗️ SSR LANGUAGE DEBUG:', {
+      queryParams: context.query,
+      extractedLang: lang,
+      rawLangParam: context.query.lang,
+      url: context.req.url
+    })
+    
     const course = await fetchCourseData(lang as Language)
+
+    console.log('✅ SSR SUCCESS:', {
+      language: lang,
+      courseTitle: course.title,
+      sectionsCount: course.sections?.length || 0
+    })
 
     return {
       props: {
@@ -29,7 +44,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       },
     }
   } catch (error) {
-    console.error('SSR Fetch Error:', error)
+    console.error('❌ SSR Fetch Error:', error)
 
     return {
       notFound: true, // Shows 404 page

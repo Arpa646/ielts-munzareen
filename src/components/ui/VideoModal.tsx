@@ -1,6 +1,4 @@
-'use client'
-
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { YouTubePlayer } from './YouTubePlayer'
 
 interface VideoModalProps {
@@ -11,8 +9,17 @@ interface VideoModalProps {
 }
 
 export function VideoModal({ isOpen, onClose, videoId, title }: VideoModalProps) {
-  // Close modal on escape key
+  const [isMounted, setIsMounted] = useState(false)
+
+  // Mount detection
   useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
+  // Close modal on escape key - only after mounting
+  useEffect(() => {
+    if (!isMounted) return
+
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         onClose()
@@ -28,7 +35,7 @@ export function VideoModal({ isOpen, onClose, videoId, title }: VideoModalProps)
       document.removeEventListener('keydown', handleEscape)
       document.body.style.overflow = 'unset'
     }
-  }, [isOpen, onClose])
+  }, [isOpen, onClose, isMounted])
 
   if (!isOpen) return null
 

@@ -1,5 +1,3 @@
-'use client'
-
 import React from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import type { Section, Pointer } from '@/types'

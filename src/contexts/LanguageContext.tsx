@@ -1,30 +1,43 @@
-'use client'
+import React, { createContext, useContext, useState } from 'react'
+import type { Language } from '@/types'
 
-import React, { createContext, useContext, useState, useEffect } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
-import type { Language, LanguageContextType } from '@/types'
+interface LanguageContextType {
+  language: Language
+  setLanguage: (lang: Language) => void
+}
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
 
-export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguageState] = useState<Language>('en')
-  const router = useRouter()
-  const searchParams = useSearchParams()
+interface LanguageProviderProps {
+  children: React.ReactNode
+  initialLanguage?: Language
+}
 
-  useEffect(() => {
-    const langParam = searchParams.get('lang') as Language
-    if (langParam && (langParam === 'en' || langParam === 'bn')) {
-      setLanguageState(langParam)
-    }
-  }, [searchParams])
+export function LanguageProvider({ children, initialLanguage = 'en' }: LanguageProviderProps) {
+  const [language, setLanguageState] = useState<Language>(initialLanguage)
+
+  // Debug language initialization (no timestamps)
+  console.log('🎯 LANGUAGE CONTEXT DEBUG:', {
+    initialLanguage,
+    currentLanguage: language
+  })
 
   const setLanguage = (lang: Language) => {
-    setLanguageState(lang)
-    const current = new URLSearchParams(Array.from(searchParams.entries()))
-    current.set('lang', lang)
-    const search = current.toString()
-    const query = search ? `?${search}` : ''
-    router.push(`/${query}`)
+    console.log('🔄 LANGUAGE CHANGE:', {
+      from: language,
+      to: lang
+    })
+    
+    // For SSR with Pages Router, we need to reload the page with new language
+    if (typeof window !== 'undefined') {
+      const url = new URL(window.location.href)
+      url.searchParams.set('lang', lang)
+      
+      console.log('🌐 FULL PAGE RELOAD WITH NEW LANGUAGE:', url.toString())
+      
+      // Full page reload to trigger getServerSideProps with new language
+      window.location.href = url.toString()
+    }
   }
 
   return (

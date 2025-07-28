@@ -1,6 +1,4 @@
-'use client'
-
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import type { Section } from '@/types'
 
@@ -18,6 +16,12 @@ interface AccordionItem {
 export function CourseDetails({ section }: CourseDetailsProps) {
   const { language } = useLanguage()
   const [openItems, setOpenItems] = useState<Set<string>>(new Set())
+  const [isMounted, setIsMounted] = useState(false)
+
+  // Mount detection to prevent hydration issues
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
 
   // Type guard to ensure we have accordion items
   const isAccordionItem = (item: any): item is AccordionItem => {
@@ -27,11 +31,14 @@ export function CourseDetails({ section }: CourseDetailsProps) {
            typeof item.description === 'string'
   }
 
-  const accordionItems = Array.isArray(section.values) 
-    ? (section.values as unknown as AccordionItem[]).filter(isAccordionItem)
-    : []
+  // Ensure consistent data structure and cast to proper type
+  const safeSection = section || {}
+  const safeValues = Array.isArray(safeSection.values) ? safeSection.values : []
+  const accordionItems: AccordionItem[] = safeValues.filter(isAccordionItem) as unknown as AccordionItem[]
 
   const toggleItem = (id: string) => {
+    if (!isMounted) return // Only allow interaction after mounting
+    
     const newOpenItems = new Set(openItems)
     if (newOpenItems.has(id)) {
       newOpenItems.delete(id)
@@ -42,7 +49,13 @@ export function CourseDetails({ section }: CourseDetailsProps) {
   }
 
   const renderHtmlContent = (html: string) => {
-    return { __html: html }
+    // Ensure we have a string and handle empty/undefined values consistently
+    // Add extra validation to prevent hydration mismatches
+    if (!html || typeof html !== 'string') {
+      return { __html: '' }
+    }
+    const cleanHtml = html.trim()
+    return { __html: cleanHtml }
   }
 
   if (!section || section.type !== 'about' || !accordionItems.length) {
@@ -54,7 +67,7 @@ export function CourseDetails({ section }: CourseDetailsProps) {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-start mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            {section.name}
+            {section.name || ''}
           </h2>
           {section.description && (
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
@@ -65,7 +78,7 @@ export function CourseDetails({ section }: CourseDetailsProps) {
 
         <div className='border border-gray-200 p-4 rounded-lg'>
           {accordionItems.map((item, index) => {
-            const isOpen = openItems.has(item.id)
+            const isOpen = isMounted && openItems.has(item.id)
             
             return (
               <div
@@ -77,14 +90,21 @@ export function CourseDetails({ section }: CourseDetailsProps) {
                   className="w-full px-6 py-5 text-left hover:bg-gray-50 transition-colors duration-200 flex items-center justify-between group"
                   aria-expanded={isOpen}
                   aria-controls={`accordion-content-${item.id}`}
+                  disabled={!isMounted}
                 >
                   <div className="flex items-center space-x-4">
                    
                     <div className="flex-1">
-                      <h3 
-                        className="text-lg md:text-xl font-semibold text-gray-900  transition-colors duration-200"
-                        dangerouslySetInnerHTML={renderHtmlContent(item.title)}
-                      />
+                      {isMounted ? (
+                        <h3 
+                          className="text-lg md:text-xl font-semibold text-gray-900 transition-colors duration-200"
+                          dangerouslySetInnerHTML={renderHtmlContent(item.title)}
+                        />
+                      ) : (
+                        <h3 className="text-lg md:text-xl font-semibold text-gray-900 transition-colors duration-200">
+                          {item.title}
+                        </h3>
+                      )}
                     </div>
                   </div>
                   <div className="flex-shrink-0 ml-4">

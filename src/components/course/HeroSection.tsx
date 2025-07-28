@@ -1,8 +1,7 @@
-'use client'
-
 import React from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import type { Medium, CtaText } from '@/types'
+import { YouTubePlayer } from '@/components/ui/YouTubePlayer'
 
 interface HeroSectionProps {
   title: string

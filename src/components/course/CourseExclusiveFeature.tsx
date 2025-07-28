@@ -1,6 +1,4 @@
-'use client'
-
-import React from 'react'
+import React, { useState } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import type { Section, FeatureExplanation } from '@/types'
 

@@ -1,5 +1,3 @@
-'use client'
-
 import React, { useState, useEffect } from 'react'
 import { YouTubePlayer } from '@/components/ui/YouTubePlayer'
 import { VideoModal } from '@/components/ui/VideoModal'
@@ -18,6 +16,7 @@ export function CourseEnrollmentCard({ courseData, isFullWidth = false }: Course
   const [currentSlide, setCurrentSlide] = useState(0)
   const [showStickyButton, setShowStickyButton] = useState(false)
   const [showFixedCard, setShowFixedCard] = useState(false)
+  const [isMounted, setIsMounted] = useState(false)
 
   // Filter videos from media array
   const videos = courseData.media.filter(item => item.resource_type === 'video')
@@ -32,8 +31,15 @@ export function CourseEnrollmentCard({ courseData, isFullWidth = false }: Course
   const videosPerSlide = 4
   const maxSlides = Math.ceil(videos.length / videosPerSlide)
 
-  // Scroll detection for sticky button and fixed card
+  // Mount detection to prevent hydration issues
   useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
+  // Scroll detection for sticky button and fixed card - only after mounting
+  useEffect(() => {
+    if (!isMounted) return
+
     const handleScroll = () => {
       const scrollY = window.scrollY
       const viewportHeight = window.innerHeight
@@ -61,7 +67,7 @@ export function CourseEnrollmentCard({ courseData, isFullWidth = false }: Course
       window.removeEventListener('scroll', handleScroll)
       window.removeEventListener('resize', checkScreenSize)
     }
-  }, [])
+  }, [isMounted])
 
   const openVideoModal = (videoId: string) => {
     setSelectedVideoId(videoId)

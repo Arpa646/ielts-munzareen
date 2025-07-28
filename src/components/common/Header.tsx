@@ -1,15 +1,18 @@
-'use client'
-
-import React from 'react'
+import React, { useState } from 'react'
 import Link from 'next/link'
 import { useLanguage } from '@/contexts/LanguageContext'
 import type { Language } from '@/types'
 
 export function Header() {
   const { language, setLanguage } = useLanguage()
+  const [switchingLanguage, setSwitchingLanguage] = useState<Language | null>(null)
 
   const handleLanguageChange = (newLang: Language) => {
-    setLanguage(newLang)
+    if (newLang !== language) {
+      console.log('🔄 User initiated language change:', { from: language, to: newLang })
+      setSwitchingLanguage(newLang)
+      setLanguage(newLang)
+    }
   }
 
   return (
@@ -46,24 +49,31 @@ export function Header() {
 
           {/* Language Switcher & CTA */}
           <div className="flex items-center space-x-4">
-            <div className="flex bg-gray-100 rounded-lg p-1">
+            <div className="flex bg-gray-100 rounded-lg p-1 relative">
+              {switchingLanguage && (
+                <div className="absolute inset-0 bg-blue-100 rounded-lg flex items-center justify-center">
+                  <div className="w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                </div>
+              )}
               <button
                 onClick={() => handleLanguageChange('en')}
+                disabled={switchingLanguage !== null}
                 className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${
                   language === 'en'
                     ? 'bg-white text-gray-900 shadow-sm'
                     : 'text-gray-600 hover:text-gray-900'
-                }`}
+                } ${switchingLanguage ? 'opacity-50 cursor-not-allowed' : ''}`}
               >
                 EN
               </button>
               <button
                 onClick={() => handleLanguageChange('bn')}
+                disabled={switchingLanguage !== null}
                 className={`px-3 py-1 rounded-md text-sm font-medium transition-colors ${
                   language === 'bn'
                     ? 'bg-white text-gray-900 shadow-sm'
                     : 'text-gray-600 hover:text-gray-900'
-                }`}
+                } ${switchingLanguage ? 'opacity-50 cursor-not-allowed' : ''}`}
               >
                 বাং
               </button>

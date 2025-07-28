@@ -3,6 +3,7 @@ import type { NextConfig } from 'next';
 const nextConfig: NextConfig = {
   /* config options here */
   reactStrictMode: true,
+
   images: {
     domains: ['api.10minuteschool.com', 'img.youtube.com', 'i.ytimg.com'],
     remotePatterns: [
@@ -12,7 +13,8 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  // ISR and caching configuration
+
+  // Headers for caching
   async headers() {
     return [
       {
@@ -35,15 +37,12 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+
   // Enable compression for better performance
   compress: true,
+
   // Optimize fonts
   optimizeFonts: true,
-  // Enable experimental features for better ISR
-  experimental: {
-    optimizeCss: true,
-    serverComponentsExternalPackages: [],
-  },
 };
 
 export default nextConfig;

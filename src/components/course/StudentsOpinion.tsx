@@ -1,6 +1,5 @@
-'use client'
-
-import React, { useState } from 'react'
+import React from 'react'
+import { useLanguage } from '@/contexts/LanguageContext'
 import { ChevronLeft, ChevronRight, Play, Quote } from 'lucide-react'
 
 interface Testimonial {
@@ -22,8 +21,8 @@ interface StudentsOpinionProps {
 }
 
 export function StudentsOpinion({ section }: StudentsOpinionProps) {
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [selectedVideo, setSelectedVideo] = useState<string | null>(null)
+  const [currentIndex, setCurrentIndex] = React.useState(0)
+  const [selectedVideo, setSelectedVideo] = React.useState<string | null>(null)
 
   const testimonials = section.values || []
   const testimonialsPerPage = 2

@@ -1,5 +1,3 @@
-'use client'
-
 import React from 'react'
 import type { CourseData, Language } from '@/types'
 import { Header } from './common/Header'
@@ -21,6 +19,14 @@ interface CoursePageContentProps {
 }
 
 export function CoursePageContent({ courseData, initialLanguage }: CoursePageContentProps) {
+  // Debug received props - only log, don't render dynamic content
+  console.log('📦 COURSE CONTENT DEBUG:', {
+    initialLanguage,
+    courseTitle: courseData.title,
+    courseSectionsCount: courseData.sections?.length || 0,
+    hasDescription: !!courseData.description
+  })
+
   const instructorSection = courseData.sections.find(section => section.type === 'instructors')
   const featuresSection = courseData.sections.find(section => section.type === 'features')
   const pointersSection = courseData.sections.find(section => section.type === 'pointers')
@@ -76,9 +82,9 @@ export function CoursePageContent({ courseData, initialLanguage }: CoursePageCon
               <FaqSectionTest section={faqSection} />
             )}
 
-            {aboutSection && (
+            {/* {aboutSection && (
               <CourseDetails section={aboutSection} />
-            )}
+            )} */}
 
             {/* Checklist Section with Image */}
             <ChecklistSection checklist={courseData.checklist} />
